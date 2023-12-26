@@ -65,7 +65,7 @@ val proprety4 = Proprety(R.drawable.img, 2000, 4,1)
 val stringList: ArrayList<String> = arrayListOf("String1", "String2", "String3", "String4", "String5")
 val propretyDataSample: ArrayList<Proprety> = arrayListOf(proprety1, proprety2, proprety3, proprety4)
 
-@Preview
+
 @Composable
 fun homeScreen(userName: String, onClick: () -> Unit ) {
 
