@@ -15,7 +15,6 @@ fun navItem(item:Screen, isSelected: Boolean, onClick: () -> Unit){
 val iconId = item.selectedIcon
     val iconAlpha = if(isSelected) 1f else 0.5f
     IconButton(onClick = { onClick }) {
-        
     }
 }
 
