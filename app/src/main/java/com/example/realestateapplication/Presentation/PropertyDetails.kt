@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,12 +27,18 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
+import androidx.compose.material3.FilledIconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.BlurredEdgeTreatment
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -43,6 +50,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.realestateapplication.R
@@ -55,12 +63,15 @@ fun PropertyDetailsScreen (){
             .fillMaxWidth()
             .fillMaxHeight(0.5f)){
 
-
             Image(painter = painterResource(id = R.drawable.img_1) ,
                 contentDescription = "",
                 modifier = Modifier
                     .fillMaxSize(),
                 contentScale = ContentScale.FillHeight)
+
+            CircularFilleddBox(icon = R.drawable.search)
+
+            Drawer()
         }
 
         Box(
@@ -268,6 +279,36 @@ fun CircularOutlinedBox(icon : Int){
 
 }
 
+@Composable
+fun CircularFilleddBox(icon : Int){
+
+   Column(Modifier.padding(horizontal = 8.dp,
+       vertical = 8.dp)) {
+       FilledIconButton(onClick = { /*TODO*/ },
+           modifier= Modifier
+               .size(50.dp)
+               .clip(CircleShape),
+           colors = IconButtonDefaults.filledIconButtonColors(
+               containerColor = Color.White,
+           )
+       ) {
+
+           Image(
+               painter = painterResource(id = icon),
+               contentDescription = null,
+               modifier = Modifier
+                   .size(24.dp)
+           )
+
+
+
+       }
+   }
+    
+
+
+}
+
 @SuppressLint("InvalidColorHexValue")
 @Composable
 fun SweepGradientExample() : Brush {
@@ -322,3 +363,72 @@ fun GradientCircularShape() {
     ) {
     }
 }
+
+@Composable
+fun Drawer() {
+    Card(
+        modifier = Modifier
+            .padding(horizontal = 4.dp)
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .padding(top = 180.dp),
+        shape = RoundedCornerShape(8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+
+
+        ) {
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxHeight()
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                CardWithImage(image = R.drawable.img_1,0.dp,0.dp)
+                CardWithImage(image = R.drawable.img_1,0.dp,0.dp)
+                CardWithImage(image = R.drawable.img_1,3.dp,3.dp)
+            }
+
+        }
+    }
+}
+
+@Composable
+fun CardWithImage(image : Int, radiusX: Dp, RadiusY : Dp) {
+    Card(
+        modifier = Modifier
+
+            .padding(
+                top = 8.dp,
+                bottom = 8.dp
+            )
+            .size(100.dp),
+        shape = RoundedCornerShape(15.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            Image(
+                contentScale = ContentScale.FillHeight,
+                painter = painterResource(image),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .blur(
+                        radiusX = radiusX,
+                        radiusY = RadiusY,
+                    )
+            )
+        }
+    }
+}
+
+
+
