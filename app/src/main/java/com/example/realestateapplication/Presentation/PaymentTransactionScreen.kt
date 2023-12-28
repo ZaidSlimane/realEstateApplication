@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -33,40 +35,44 @@ import com.example.realestateapplication.Model.Transaction
 import com.example.realestateapplication.Presentation.Components.CustomProgressBar
 import com.example.realestateapplication.R
 
-val transaction1 = Transaction(R.drawable.search, "2000", "4", "1")
-val transaction2 = Transaction(R.drawable.search, "2000", "4", "1")
-val transaction3 = Transaction(R.drawable.search, "2000", "4", "1")
-val transaction4 = Transaction(R.drawable.search, "2000", "4", "1")
+val transaction1 = Transaction(R.drawable.search, "date", "4", "1")
+val transaction2 = Transaction(R.drawable.search, "date", "4", "1")
+val transaction3 = Transaction(R.drawable.search, "date", "4", "1")
+val transaction4 = Transaction(R.drawable.search, "date", "4", "1")
 
 val transactionDataSample: ArrayList<Transaction> = arrayListOf(transaction1, transaction2, transaction3, transaction4)
 @Composable
-fun PaymentTransactionScreen(){
-
-    Column(horizontalAlignment = Alignment.CenterHorizontally,
+fun PaymentTransactionScreen() {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
             .background(SweepGradientExample())
-           ) {
+    ) {
 
-        Card(modifier = Modifier
-            .padding(horizontal = 15.dp)
-            .padding(top = 50.dp)
-            .fillMaxWidth()
-            .height(150.dp),
+        Card(
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+                .padding(top = 50.dp)
+                .fillMaxWidth()
+                .height(150.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White),
+                containerColor = Color.White
+            ),
             shape = RoundedCornerShape(15.dp),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 2.dp,
             )
-        ){
+        ) {
 
-            Column(horizontalAlignment = Alignment.CenterHorizontally,
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxSize()
-                ) {
+            ) {
 
-                Text("Remaining",
+                Text(
+                    "Remaining",
                     style = TextStyle(
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
@@ -75,7 +81,8 @@ fun PaymentTransactionScreen(){
                         .padding(top = 8.dp)
                 )
 
-                Text("10000 $",
+                Text(
+                    "10000 $",
                     style = TextStyle(
                         fontSize = 24.sp,
                     ),
@@ -87,28 +94,60 @@ fun PaymentTransactionScreen(){
 
         }
 
-        Card(modifier = Modifier
-            .align(Alignment.Start)
-            .padding(top = 50.dp)
-            .fillMaxHeight(1.0f)
-            .fillMaxWidth()
-            .height(150.dp),
+        // Row with two buttons
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(
+                colors = ButtonDefaults.buttonColors(Color(0xFF001F3F)),
+                onClick = {
+                    // Handle the first button click
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text("History")
+            }
+
+            Button(
+                colors = ButtonDefaults.buttonColors(Color(0xFF001F3F)),
+                onClick = {
+                    // Handle the second button click
+                },
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp)
+            ) {
+                Text("Rest to pay")
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .align(Alignment.Start)
+                .padding(top = 16.dp)
+                .fillMaxHeight(1.0f)
+                .fillMaxWidth()
+                .height(150.dp)
+                .background(GradientCircularShape2()),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White),
-            shape = RoundedCornerShape(topStart = 15.dp,
-                topEnd = 15.dp),
+                containerColor = Color.White
+            ),
+            shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
             elevation = CardDefaults.cardElevation(
                 defaultElevation = 2.dp,
             )
-        ){
+        ) {
             TrasactionsList(transactionDataSample)
         }
     }
-
-
-
-
 }
+
 
 
 @Composable

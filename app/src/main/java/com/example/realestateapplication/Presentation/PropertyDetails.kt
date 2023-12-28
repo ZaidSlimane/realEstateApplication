@@ -338,7 +338,6 @@ fun SweepGradientExample() : Brush {
 fun GradientCircularShape() {
 
 
-
     val density = LocalDensity.current
     val centerX: Float
     val centerY: Float
@@ -362,6 +361,28 @@ fun GradientCircularShape() {
             .background(brush)
     ) {
     }
+}
+
+@Composable
+fun GradientCircularShape2() : Brush {
+
+
+    val density = LocalDensity.current
+    val centerX: Float
+    val centerY: Float
+    with(density) {
+        centerX =300.dp.toPx() /2
+        centerY = 0.dp.toPx() / 2
+    }
+
+    val brush = Brush.sweepGradient(
+        colors = listOf(
+            Color(0x10F4AF4),
+            Color(0x209895EE)
+        ),
+        center = Offset(centerX, centerY)
+    )
+return brush
 }
 
 @Composable
