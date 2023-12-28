@@ -136,7 +136,7 @@ fun PaymentTransactionScreen() {
                 .height(150.dp)
                 .background(GradientCircularShape2()),
             colors = CardDefaults.cardColors(
-                containerColor = Color.White
+                containerColor = Color(0x10001F3F),
             ),
             shape = RoundedCornerShape(topStart = 15.dp, topEnd = 15.dp),
             elevation = CardDefaults.cardElevation(

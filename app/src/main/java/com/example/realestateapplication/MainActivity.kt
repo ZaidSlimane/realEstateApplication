@@ -9,17 +9,26 @@ import com.example.realestateapplication.Presentation.PropertyDetailsScreen
 import com.example.realestateapplication.Presentation.Visualizer3DScreen
 import com.example.realestateapplication.Presentation.homeScreen
 import com.example.realestateapplication.ui.theme.RealEstateApplicationTheme
+import com.google.android.filament.utils.Utils
 
 class MainActivity : ComponentActivity() {
     val onClick: () -> Unit = {}
 
+
+    companion object {
+        init {
+            Utils.init()
+        }
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-          //  PropertyDetailsScreen()
+            //  PropertyDetailsScreen()
             RealEstateApplicationTheme {
-               PaymentTransactionScreen()
+                Visualizer3DScreen()
+               //PaymentTransactionScreen()
               //  Visualizer3DScreen()
                // PropertyDetailsScreen()
                // homeScreen(userName = "Zaid Slimane", onClick)

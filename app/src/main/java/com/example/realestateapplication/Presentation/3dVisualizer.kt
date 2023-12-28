@@ -1,9 +1,16 @@
 package com.example.realestateapplication.Presentation
 
+import android.content.Context
 import android.icu.text.Transliterator
+import android.view.SurfaceView
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.Lifecycle
 import io.github.sceneview.Scene
 import io.github.sceneview.math.Position
 import io.github.sceneview.node.ModelNode
@@ -14,22 +21,23 @@ import io.github.sceneview.rememberNodes
 
 
 @Composable
-fun Visualizer3DScreen(){
+fun Visualizer3DScreen() {
 
-    val engine = rememberEngine()
-    val modelLoader = rememberModelLoader(engine)
-    val environmentLoader = rememberEnvironmentLoader(engine)
-    Scene(
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    Surface(
         modifier = Modifier.fillMaxSize(),
-        engine = engine,
-        modelLoader = modelLoader,
-        childNodes = rememberNodes {
-            add(ModelNode(modelLoader.createModelInstance("")).apply {
-                // Move the node 4 units in Camera front direction
-                position = Position(z = -3.0f, x = 0.0f, y = -1.0f)
-            })
-        }
-    )
+        color = MaterialTheme.colorScheme.background
+    ) {
+        AndroidView(factory = { context ->
+            val renderer = ModelRenderer()
+
+            SurfaceView(context).apply {
+                renderer.onSurfaceAvailable(this, lifecycleOwner.lifecycle )
+            }
+        })
+
+    }
 }
 
 
