@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.realestateapplication.Presentation.Screens.TicketComplaintScreen
 import com.example.realestateapplication.ui.theme.RealEstateApplicationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     val onClick: () -> Unit = {}
 

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "891082570881",
+    "firebase_url": "https://gdghackathon-87310-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "gdghackathon-87310",
+    "storage_bucket": "gdghackathon-87310.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:891082570881:android:096fda01e48fd0fc0a2180",
+        "android_client_info": {
+          "package_name": "com.example.realestateapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBABWaaNp3KLNkRkCF8xQa0Lg0IiuITc8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
