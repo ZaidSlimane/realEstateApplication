@@ -19,12 +19,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.example.realestateapplication.Model.ComplaintTicket
+import com.example.realestateapplication.Presentation.States.ComplaintTicketState
 import com.example.realestateapplication.ViewModels.ComplaintTicketViewModel
 
 
 @Composable()
 fun textedButton(
-    fields: Map<String, String>,
+    thisScreenState: ComplaintTicketState,
+    fields: ComplaintTicket,
     ticketViewModel: ComplaintTicketViewModel,
     buttonText: String,
     alignment: Alignment,
