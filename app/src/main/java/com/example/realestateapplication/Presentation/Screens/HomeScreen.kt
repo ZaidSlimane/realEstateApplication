@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -52,10 +53,10 @@ import com.example.realestateapplication.Model.Proprety
 import com.example.realestateapplication.R
 
 
-val proprety1 = Proprety(R.drawable.img, 2000, 4,1)
-val proprety2 = Proprety(R.drawable.img, 2000, 4,1)
-val proprety3 = Proprety(R.drawable.img, 2000, 4,1)
-val proprety4 = Proprety(R.drawable.img, 2000, 4,1)
+val proprety1 = Proprety(R.drawable.img_1, 2000, 4,1)
+val proprety2 = Proprety(R.drawable.img_1, 2000, 4,1)
+val proprety3 = Proprety(R.drawable.img_1, 2000, 4,1)
+val proprety4 = Proprety(R.drawable.img_1, 2000, 4,1)
 
 val stringList: ArrayList<String> = arrayListOf("String1", "String2", "String3", "String4", "String5")
 val propretyDataSample: ArrayList<Proprety> = arrayListOf(proprety1, proprety2, proprety3, proprety4)
@@ -65,12 +66,10 @@ val propretyDataSample: ArrayList<Proprety> = arrayListOf(proprety1, proprety2, 
 fun homeScreen(userName: String, onClick: () -> Unit ) {
 
 
-    Column (modifier = Modifier.fillMaxSize()
+    Column (modifier = Modifier
+        .fillMaxSize()
         .background(
-            brush = Brush.radialGradient(
-                colors = listOf(Color.White, Color.LightGray),
-                center = Offset(x = 2f, y = 2f) // center
-            )
+            SweepGradientExample()
         )
     ){
 
@@ -112,7 +111,21 @@ fun homeScreen(userName: String, onClick: () -> Unit ) {
 
         }
         filterLazyRow(buildingTypeList = stringList )
+
+        Text(text = "All Property",
+            style = TextStyle(fontSize = 24.sp,
+                fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(start = 32.dp,
+                top=8.dp)
+            )
+
         CarRow(data = propretyDataSample)
+        Text(text = "Featured Property",
+            style = TextStyle(fontSize = 24.sp,
+                fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(start = 32.dp,
+                top=8.dp)
+        )
        CardColumn(data = propretyDataSample)
 
 
@@ -202,22 +215,16 @@ fun searchBar() {
                 onClick = { /*TODO*/ },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.5f)
+                    .weight(0.6f)
                     .padding(start = 16.dp)
-                    .padding(
-                        top = 8.dp,
-                        bottom = 8.dp
-                    )
                     .background(
-                        Color(R.color.darkBlue),
+                        Color(0xFF001F3F),
                         shape = RoundedCornerShape(12.dp)
                     ),
-
-
-
                         shape = RoundedCornerShape(50),
                 colors = ButtonDefaults.run { buttonColors(Color.Transparent) }
             ) {
+                        Text(text = "Filter")
             }
         }
 }
@@ -237,12 +244,13 @@ fun filterLazyRow (buildingTypeList : ArrayList<String>){
 @Composable
 fun SearchByTypeButtons(index: Int) {
     Button(
+        colors = ButtonDefaults.buttonColors(Color(0xFF001F3F)),
         onClick = { /* Handle button click */ },
         modifier = Modifier
             .padding(
               top = 21.dp,
-                start = 24.dp,
-                end = 10.dp
+                start = 2.dp,
+                end = 5.dp
             ) )
             {
         Text(
@@ -250,8 +258,8 @@ fun SearchByTypeButtons(index: Int) {
             text = "Apartement $index",
             modifier = Modifier
             .padding(
-            horizontal = 24.dp,
-            vertical = 17.5.dp
+            horizontal = 18.dp,
+            vertical = 10.dp
         ),
         )
     }
@@ -262,7 +270,7 @@ fun CarRow(data : ArrayList<Proprety>) {
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp),
+            .padding(top = 8.dp),
         contentPadding = PaddingValues(horizontal = 8.dp)
     ) {
         items(data.size) { index ->
@@ -291,7 +299,6 @@ fun CardItem(property: Proprety) {
     Card(
         modifier = Modifier
             .size(220.dp, 300.dp)
-            .background(Color.White)
             .padding(8.dp),
         shape = RoundedCornerShape(30.dp),
         elevation = CardDefaults.cardElevation(
@@ -300,21 +307,33 @@ fun CardItem(property: Proprety) {
         colors = CardDefaults.cardColors(
             containerColor = Color.White)
     ) {
-        Box(Modifier.fillMaxSize()) {
+        Box(Modifier.fillMaxWidth()) {
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
-                verticalArrangement = Arrangement.Top,
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.SpaceEvenly,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Image(
-                    painter = painterResource(property.propretyIamge),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.8f) // Adjust the height as needed
-                )
+
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp)
+                    .padding(
+                        horizontal = 8.dp,
+                        vertical = 2.dp
+                    )
+                    ){
+                    Image(
+                        painter = painterResource(property.propretyIamge),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(20.dp)),
+                    contentScale = ContentScale.Crop
+                        // Adjust the height as needed
+                    )
+                }
+
 
                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -363,28 +382,44 @@ fun FeaturedPropretyCardItem (property: Proprety) {
             .fillMaxWidth()
             .height(120.dp)
             .padding(8.dp),
-        shape = RoundedCornerShape(30.dp)
+        shape = RoundedCornerShape(30.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.White)
     )
         {
-        Box(Modifier.fillMaxSize()) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .padding(8.dp),
+        ) {
             Row(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(8.dp),
-               horizontalArrangement = Arrangement.Start
 
             ) {
-                Image(
-                    painter = painterResource(property.propretyIamge),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.2f) // Adjust the height as needed
-                )
+                Box(modifier = Modifier
 
-                Spacer(modifier = Modifier.height(8.dp))
+                ){
+                    Image(
+                        painter = painterResource(property.propretyIamge),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(
+                                vertical = 8.dp,
+                                horizontal = 8.dp
+                            )
+                            .height(120.dp)
+                            .width(70.dp)
+                            .clip(RoundedCornerShape(20.dp)),
+                        contentScale = ContentScale.Crop
+                        // Adjust the height as needed
+                    )
+                }
 
-                Column {
+
+                Column(verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.fillMaxHeight()
+                    ) {
 
                     Row(
                         modifier = Modifier
@@ -393,14 +428,14 @@ fun FeaturedPropretyCardItem (property: Proprety) {
                         verticalAlignment = Alignment.Top
                     ) {
                         Text(text = "Apartment",
-                            style = TextStyle(fontSize = 12.sp,
+                            style = TextStyle(fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
                             )
                         )
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(text = "2600$",
-                            style = TextStyle(fontSize = 12.sp,
+                            style = TextStyle(fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold
                             )
                         )
