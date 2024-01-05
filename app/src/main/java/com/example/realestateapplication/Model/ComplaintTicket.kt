@@ -4,7 +4,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 
 data class ComplaintTicket(
     val description: String?,
-val floor: String?,
+    val floor: String?,
     val subject: String?,
-val type: String?
+     val type: String?
 )
